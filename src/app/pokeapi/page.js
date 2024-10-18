@@ -5,9 +5,9 @@ export default function pokeapi(){
     const [namePoke, setName]=useState();
     return(
         <div>
-            <input type="text" placeholder="Pokemon a buscar" onChange={()=>handleInputChange(event)}></input>
+            <input id="Pokename"type="text" placeholder="Pokemon a buscar" onChange={()=>handleInputChange(event)}></input>
             <p>{namePoke}</p>
-            <button onClick={()=>getPoke()}>Buscar Pokemon</button>
+            <button onClick={()=>getPoke(namePoke)}>Buscar Pokemon</button>
             <ul>
                 <li>
                     {poke.name}
@@ -18,11 +18,15 @@ export default function pokeapi(){
     function handleInputChange(e){
         setName(e.target.value);
     }
-    async function getPoke(){
-        await fetch("https://pokeapi.co/api/v2/pokemon/ditto")
-        .then(response=>response.json())
-        .then((data)=>{
-            setPoke(data);
-        });
+    async function getPoke(msg){
+        try{
+            await fetch("https://pokeapi.co/api/v2/pokemon/"+msg)
+            .then(response=>response.json())
+            .then((data)=>{
+                setPoke(data);
+            });
+        }catch{
+            setPoke({name:"No existe ese pokemon"})
+        }
     }
 }
