@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react/cjs/react.production.min";
+"use client"
+import { useEffect, useState } from "react";
 export default function pokeapi(){
 
 }
